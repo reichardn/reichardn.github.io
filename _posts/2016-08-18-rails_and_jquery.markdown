@@ -1,0 +1,12 @@
+---
+layout: post
+title:  "Rails and jQuery "
+date:   2016-08-18 00:24:48 +0000
+---
+
+
+For this project I added some jQuery functionality to the 'Diary' app that I built for my rails project. The app is intended to help employees in a client-service business (law, accountant, etc) to keep track of their hours worked on different projects. 
+
+In the rails-only version of the app, a user could add new tasks to a diary from the diary#show view, which would then update the view to reflect the addtional hours worked. However, because this feature was implemented solely with rails, it required that the brower redirect to the task#create route, which would in turn redirect back to the original page, which would reload with the updated information. This is a good candidate for implementing jQuery. Because there is no need to actually leave the page, it would be better for the experience of the post request could be sent using jQuery, and the page updated to reflect sucess, all without reloading the page. I prevented the default behavior of the new entry form, intercepted the data and sent the post request using jquery. When the reponse is received, it is parsed into a js Entry object which has an instance method to generate the necessary html to add a new row to the 'entries' table. This html is then appended to the table.
+
+The original rails app did not have any functionality for an admin to view all the users and their associated diaries, so I decided to add this using jQuery. As an initial matter, I had to add functionality for the existence of an admin class. I added an 'admin' column to the Users table, with a boolean value that defaulted to false. Next I added a pundit policy for users to ensure that only administrators could access the Users views. Because the aim of this project was to use jQuery, I approached the users#index view in a different way. Rather than loading all the users through rails/erb, the initial index view did not list any users. Instead, it promped the user to click a button if she wanted to see the list. Clicking the button would fire a jQuery get request to /users.json, and render the resulting json into a series of list items in the view. Each list item was a link to the show view for that user. Once in the user#show view, the admin could click a button to load a list of that user's diaries, or could click 'next user' to load the show view for the next user. Each of these features was implemented with a jQuery get request to a rails api serving JSON (formatted with an appropriate serializer).
