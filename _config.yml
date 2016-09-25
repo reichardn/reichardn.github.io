@@ -1,10 +1,10 @@
 # Site settings
-title: N's
+title: Nick's Blog
 header-img: img/home-bg.png
 email: reichardn@gmail.com
 copyright_name: reichardn
 description: > # this means to ignore newlines until "baseurl:"
-  N
+  Certain thoughts
 baseurl: "" # the subpath of your site, e.g. /blog
 twitter_username: reichardn
 github_username:  reichardn
